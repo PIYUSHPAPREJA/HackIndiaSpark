@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Maa Ke Haath Ka Khana 👩🍳</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFBE0B;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+            --text: #333;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFBE0B;
+            --dark: #F8F9FA;
+            --light: #1A1A2E;
+            --text: #F8F9FA;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+
+        body {
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        .main-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: background-color 0.3s;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content Container */
+        .main-container {
+            flex: 1;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Main Content Grid */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Recipe Section */
+        .recipe-section {
+            background: var(--light);
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* Footer Styles */
+        .main-footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+
+        /* Rest of your original styles */
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: var(--dark);
+            color: white;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .tab.active {
+            background: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"], select {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            background: var(--light);
+            color: var(--text);
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background: #e05555;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .voice-btn {
+            background: var(--secondary);
+            width: 50px;
+            justify-content: center;
+        }
+
+        .voice-btn:hover {
+            background: #3dbeb6;
+        }
+
+        .recipe-result {
+            margin-top: 30px;
+            padding: 25px;
+            background: var(--light);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .recipe-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .recipe-name {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .recipe-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .meta-item {
+            background: var(--dark);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .recipe-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            font-size: 4rem;
+        }
+
+        .recipe-instructions {
+            margin-top: 20px;
+        }
+
+        .recipe-instructions h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .recipe-instructions ol {
+            padding-left: 20px;
+        }
+
+        .recipe-instructions li {
+            margin-bottom: 10px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .sidebar-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-title {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Nutrition Card */
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .nutrition-item {
+            background: rgba(78, 205, 196, 0.1);
+            padding: 12px;
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .nutrition-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .nutrition-label {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.8;
+        }
+
+        /* Shopping List */
+        .shopping-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .shopping-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .shopping-list li:last-child {
+            border-bottom: none;
+        }
+
+        .shopping-list input[type="checkbox"] {
+            accent-color: var(--primary);
+        }
+
+        /* Meal Planner */
+        .meal-plan {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .meal-day {
+            background: rgba(255, 190, 11, 0.1);
+            padding: 12px;
+            border-radius: var(--radius);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .meal-day.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* AI Chat */
+        .ai-chat {
+            margin-top: 20px;
+        }
+
+        .ai-message {
+            background: rgba(255, 107, 107, 0.1);
+            padding: 15px;
+            border-radius: var(--radius);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .user-message {
+            background: rgba(78, 205, 196, 0.1);
+            padding: 15px;
+            border-radius: var(--radius);
+            margin-bottom: 15px;
+        }
+
+        /* Image Upload */
+        .image-upload {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .image-upload label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .image-preview {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* Footer Content */
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(10px); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e05555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-utensils logo-icon"></i>
+                <span class="logo-text">AI Maa Ke Haath Ka Khana</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#recipes" class="nav-link">Recipes</a>
+                <a href="#meal-planner" class="nav-link">Meal Planner</a>
+                <a href="#about" class="nav-link">About</a>
+            </nav>
+            <div class="toggle-container">
+                <span id="mode-text">Light</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <div class="container">
+            <div class="main-content">
+                <section class="recipe-section">
+                    <div class="tab-container">
+                        <div class="tab active" data-tab="recipe">Recipe Finder</div>
+                        <div class="tab" data-tab="meal">Meal Planner</div>
+                        <div class="tab" data-tab="ask">Ask AI Maa</div>
+                    </div>
+
+                    <!-- Recipe Finder Tab -->
+                    <div id="recipe-tab" class="tab-content active">
+                        <div class="form-group">
+                            <label for="ingredients">What's in your fridge?</label>
+                            <div class="input-group">
+                                <input type="text" id="ingredients" placeholder="e.g., onions, potatoes, chicken">
+                                <button class="voice-btn" id="voice-btn"><i class="fas fa-microphone"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="diet">Dietary Preference</label>
+                            <select id="diet">
+                                <option value="any">Any</option>
+                                <option value="vegetarian">Vegetarian</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="non-veg">Non-Vegetarian</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cuisine">Cuisine Style</label>
+                            <select id="cuisine">
+                                <option value="any">Any</option>
+                                <option value="north">North Indian</option>
+                                <option value="south">South Indian</option>
+                                <option value="punjabi">Punjabi</option>
+                                <option value="gujarati">Gujarati</option>
+                                <option value="bengali">Bengali</option>
+                            </select>
+                        </div>
+
+                        <button id="find-recipe"><i class="fas fa-search"></i> Find Recipes</button>
+
+                        <div id="recipe-result" class="recipe-result">
+                            <div class="recipe-header">
+                                <h2 class="recipe-name" id="recipe-name">Aloo Gobi</h2>
+                                <button id="save-recipe"><i class="fas fa-heart"></i> Save</button>
+                            </div>
+                            <div class="recipe-meta" id="recipe-meta">
+                                <span class="meta-item"><i class="fas fa-fire"></i> 320 cal</span>
+                                <span class="meta-item"><i class="fas fa-clock"></i> 30 mins</span>
+                                <span class="meta-item"><i class="fas fa-utensils"></i> Serves 4</span>
+                            </div>
+                            <div class="recipe-image" id="recipe-image">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="recipe-instructions" id="recipe-instructions">
+                                <h3><i class="fas fa-list-ol"></i> Instructions</h3>
+                                <ol>
+                                    <li>Heat oil in a pan and add cumin seeds</li>
+                                    <li>Add chopped onions and sauté until golden</li>
+                                    <li>Add potatoes and cook for 5 minutes</li>
+                                    <li>Add cauliflower and spices, cook covered</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Meal Planner Tab -->
+                    <div id="meal-tab" class="tab-content">
+                        <div class="form-group">
+                            <label>Generate Weekly Meal Plan</label>
+                            <button id="generate-meal-plan"><i class="fas fa-calendar-alt"></i> Generate Plan</button>
+                        </div>
+
+                        <div id="meal-plan-result">
+                            <div class="meal-plan">
+                                <div class="meal-day active" data-day="monday">Mon</div>
+                                <div class="meal-day" data-day="tuesday">Tue</div>
+                                <div class="meal-day" data-day="wednesday">Wed</div>
+                                <div class="meal-day" data-day="thursday">Thu</div>
+                                <div class="meal-day" data-day="friday">Fri</div>
+                                <div class="meal-day" data-day="saturday">Sat</div>
+                                <div class="meal-day" data-day="sunday">Sun</div>
+                            </div>
+
+                            <div id="day-meals" style="margin-top: 20px;">
+                                <h3>Monday Meals</h3>
+                                <div class="meal-item">
+                                    <strong>Breakfast:</strong> Poha with Peanuts
+                                </div>
+                                <div class="meal-item">
+                                    <strong>Lunch:</strong> Rajma Chawal
+                                </div>
+                                <div class="meal-item">
+                                    <strong>Dinner:</strong> Roti with Aloo Sabzi
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Chat Tab -->
+                    <div id="ask-tab" class="tab-content">
+                        <div class="ai-chat">
+                            <div class="ai-message">
+                                <strong>AI Maa:</strong> Namaste beta! How can I help you today?
+                            </div>
+                            <div class="user-message">
+                                <strong>You:</strong> How do I make soft rotis?
+                            </div>
+                            <div class="ai-message">
+                                <strong>AI Maa:</strong> Beta, the secret is in the kneading! Use warm water, knead for at least 5 minutes, and let the dough rest for 30 minutes before rolling.
+                            </div>
+                        </div>
+                        <div class="input-group" style="margin-top: 15px;">
+                            <input type="text" id="ai-question" placeholder="Ask AI Maa...">
+                            <button id="ask-ai"><i class="fas fa-paper-plane"></i> Ask</button>
+                        </div>
+                    </div>
+                </section>
+
+                <aside class="sidebar">
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title"><i class="fas fa-chart-pie"></i> Nutrition Info</h3>
+                        <div class="nutrition-grid">
+                            <div class="nutrition-item">
+                                <div class="nutrition-value" id="calories">320</div>
+                                <div class="nutrition-label">Calories</div>
+                            </div>
+                            <div class="nutrition-item">
+                                <div class="nutrition-value" id="protein">12g</div>
+                                <div class="nutrition-label">Protein</div>
+                            </div>
+                            <div class="nutrition-item">
+                                <div class="nutrition-value" id="carbs">45g</div>
+                                <div class="nutrition-label">Carbs</div>
+                            </div>
+                            <div class="nutrition-item">
+                                <div class="nutrition-value" id="fats">8g</div>
+                                <div class="nutrition-label">Fats</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title"><i class="fas fa-shopping-basket"></i> Shopping List</h3>
+                        <ul class="shopping-list" id="shopping-list">
+                            <li><input type="checkbox"> Onions (2)</li>
+                            <li><input type="checkbox"> Tomatoes (4)</li>
+                            <li><input type="checkbox"> Potatoes (1kg)</li>
+                            <li><input type="checkbox"> Garam Masala</li>
+                        </ul>
+                        <button style="margin-top: 10px;"><i class="fas fa-plus"></i> Add Item</button>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title"><i class="fas fa-camera"></i> Food Scanner</h3>
+                        <div class="image-upload">
+                            <input type="file" id="food-image" accept="image/*" style="display: none;">
+                            <button onclick="document.getElementById('food-image').click()">
+                                <i class="fas fa-upload"></i> Upload Food Photo
+                            </button>
+                            <img id="image-preview" class="image-preview">
+                            <div id="image-result" style="margin-top: 10px; font-style: italic;"></div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p>AI Maa Ke Haath Ka Khana brings you the taste of homemade Indian food with the power of artificial intelligence.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#recipes">Recipes</a></li>
+                    <li><a href="#meal-planner">Meal Planner</a></li>
+                    <li><a href="#ask-ai">Ask AI Maa</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Categories</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Vegetarian</a></li>
+                    <li><a href="#">Non-Vegetarian</a></li>
+                    <li><a href="#">Vegan</a></li>
+                    <li><a href="#">Desserts</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-envelope"></i> contact@aimaakehaath.com</li>
+                    <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Mumbai, India</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 AI Maa Ke Haath Ka Khana. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // ==================== AI RECIPE DATABASE ====================
+        const RECIPES = [
+            {
+                id: 1,
+                name: "Aloo Gobi",
+                ingredients: ["potatoes", "cauliflower", "onions", "tomatoes", "spices"],
+                instructions: [
+                    "Heat oil in a pan and add cumin seeds",
+                    "Add chopped onions and sauté until golden",
+                    "Add ginger-garlic paste and sauté for 1 minute",
+                    "Add chopped tomatoes and cook until soft",
+                    "Add turmeric, red chili powder, coriander powder, and salt",
+                    "Add cubed potatoes and cook for 5 minutes",
+                    "Add cauliflower florets and mix well",
+                    "Cook covered on low heat for 15-20 minutes",
+                    "Garnish with fresh coriander leaves"
+                ],
+                nutrition: {
+                    calories: 320,
+                    protein: "12g",
+                    carbs: "45g",
+                    fats: "8g"
+                },
+                time: "30 mins",
+                serves: 4,
+                cuisine: "north",
+                diet: "vegetarian",
+                tips: [
+                    "Cut potatoes and cauliflower in similar sizes for even cooking",
+                    "Add a pinch of asafoetida (hing) for better digestion",
+                    "For restaurant-style flavor, add 1 tbsp kasuri methi"
+                ]
+            },
+            {
+                id: 2,
+                name: "Chicken Biryani",
+                ingredients: ["chicken", "basmati rice", "onions", "yogurt", "spices"],
+                instructions: [
+                    "Marinate chicken with yogurt and spices for 1 hour",
+                    "Soak basmati rice for 30 minutes",
+                    "Caramelize sliced onions in ghee",
+                    "Layer rice and chicken in a heavy-bottomed pot",
+                    "Add saffron milk and fried onions between layers",
+                    "Cook on dum (sealed) for 20-25 minutes",
+                    "Let it rest for 10 minutes before serving"
+                ],
+                nutrition: {
+                    calories: 550,
+                    protein: "35g",
+                    carbs: "60g",
+                    fats: "18g"
+                },
+                time: "90 mins",
+                serves: 4,
+                cuisine: "north",
+                diet: "non-veg",
+                tips: [
+                    "Use aged basmati rice for best results",
+                    "Seal the pot with dough for authentic dum cooking",
+                    "Serve with raita and mirchi ka salan"
+                ]
+            },
+            {
+                id: 3,
+                name: "Masala Dosa",
+                ingredients: ["rice", "urad dal", "potatoes", "onions", "spices"],
+                instructions: [
+                    "Soak rice and dal separately for 4-6 hours",
+                    "Grind to smooth batter and ferment overnight",
+                    "For potato filling: boil and mash potatoes",
+                    "Sauté onions, mustard seeds, curry leaves, and spices",
+                    "Add mashed potatoes and mix well",
+                    "Spread dosa batter thin on hot tawa",
+                    "Add potato filling and fold",
+                    "Serve with coconut chutney and sambar"
+                ],
+                nutrition: {
+                    calories: 280,
+                    protein: "8g",
+                    carbs: "50g",
+                    fats: "5g"
+                },
+                time: "40 mins",
+                serves: 3,
+                cuisine: "south",
+                diet: "vegetarian",
+                tips: [
+                    "Add a tsp of fenugreek seeds while soaking for better fermentation",
+                    "Use cast iron tawa for crispy dosas",
+                    "Make batter slightly thin for paper dosa"
+                ]
+            },
+            {
+                id: 4,
+                name: "Poha with Peanuts",
+                ingredients: ["poha", "peanuts", "onions", "potatoes", "spices"],
+                instructions: [
+                    "Rinse poha and set aside to drain",
+                    "Roast peanuts in oil and set aside",
+                    "Sauté mustard seeds, curry leaves, and green chilies",
+                    "Add chopped onions and potatoes, cook until soft",
+                    "Add turmeric and salt, mix well",
+                    "Add drained poha and mix gently",
+                    "Garnish with fresh coriander and roasted peanuts"
+                ],
+                nutrition: {
+                    calories: 250,
+                    protein: "6g",
+                    carbs: "40g",
+                    fats: "7g"
+                },
+                time: "20 mins",
+                serves: 2,
+                cuisine: "north",
+                diet: "vegetarian",
+                tips: [
+                    "Use thick poha for better texture",
+                    "Add a pinch of sugar for balanced flavor",
+                    "Squeeze lemon juice before serving for freshness"
+                ]
+            },
+            {
+                id: 5,
+                name: "Rajma Chawal",
+                ingredients: ["rajma", "rice", "onions", "tomatoes", "spices"],
+                instructions: [
+                    "Soak rajma overnight and pressure cook until tender",
+                    "Sauté onions, ginger-garlic paste, and spices",
+                    "Add tomatoes and cook until oil separates",
+                    "Add cooked rajma and simmer for 15 minutes",
+                    "Garnish with fresh coriander",
+                    "Serve with steamed rice"
+                ],
+                nutrition: {
+                    calories: 450,
+                    protein: "18g",
+                    carbs: "70g",
+                    fats: "10g"
+                },
+                time: "60 mins",
+                serves: 3,
+                cuisine: "north",
+                diet: "vegetarian",
+                tips: [
+                    "Use Kashmiri rajma for best results",
+                    "Add a dollop of butter before serving",
+                    "Cook on low flame for richer flavor"
+                ]
+            }
+        ];
+
+        // ==================== AI RESPONSES ====================
+        const AI_RESPONSES = {
+            greetings: [
+                "Namaste beta! How can I help you today?",
+                "Hello dear! What would you like to cook?",
+                "Aap kaise ho? Tell me what's in your fridge!"
+            ],
+            cookingTips: [
+                "Always soak dal for 30 minutes before cooking for better texture",
+                "Add a pinch of sugar to balance tomato-based curries",
+                "Roast spices in oil before adding other ingredients for better flavor",
+                "Use warm water for kneading soft roti dough"
+            ],
+            substitutions: {
+                "tomatoes": "You can use yogurt or tamarind paste instead of tomatoes",
+                "onions": "Try using asafoetida (hing) as an onion substitute",
+                "garam masala": "Mix equal parts cumin, coriander, and black pepper"
+            }
+        };
+
+        // ==================== APP STATE ====================
+        let state = {
+            darkMode: false,
+            savedRecipes: JSON.parse(localStorage.getItem('savedRecipes')) || [],
+            shoppingList: JSON.parse(localStorage.getItem('shoppingList')) || [
+                { item: "Onions", quantity: "2", checked: false },
+                { item: "Tomatoes", quantity: "4", checked: false },
+                { item: "Potatoes", quantity: "1kg", checked: false },
+                { item: "Garam Masala", quantity: "", checked: false }
+            ],
+            mealPlan: {}
+        };
+
+        // ==================== DOM ELEMENTS ====================
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const modeText = document.getElementById('mode-text');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const recipeResult = document.getElementById('recipe-result');
+        const voiceBtn = document.getElementById('voice-btn');
+        const ingredientsInput = document.getElementById('ingredients');
+        const findRecipeBtn = document.getElementById('find-recipe');
+        const saveRecipeBtn = document.getElementById('save-recipe');
+        const generateMealPlanBtn = document.getElementById('generate-meal-plan');
+        const askAiBtn = document.getElementById('ask-ai');
+        const aiQuestionInput = document.getElementById('ai-question');
+        const foodImageInput = document.getElementById('food-image');
+        const imagePreview = document.getElementById('image-preview');
+        const imageResult = document.getElementById('image-result');
+        const mealDays = document.querySelectorAll('.meal-day');
+
+        // ==================== EVENT LISTENERS ====================
+        darkModeToggle.addEventListener('change', toggleDarkMode);
+        tabs.forEach(tab => tab.addEventListener('click', switchTab));
+        findRecipeBtn.addEventListener('click', findRecipe);
+        saveRecipeBtn.addEventListener('click', saveRecipe);
+        generateMealPlanBtn.addEventListener('click', generateMealPlan);
+        askAiBtn.addEventListener('click', askAI);
+        voiceBtn.addEventListener('click', startVoiceRecognition);
+        foodImageInput.addEventListener('change', handleImageUpload);
+        
+        // Add event listeners for meal days
+        mealDays.forEach(day => {
+            day.addEventListener('click', () => {
+                const dayName = day.dataset.day;
+                displayDayMeals(dayName);
+            });
+        });
+
+        // Initialize the app
+        init();
+
+        // ==================== FUNCTIONS ====================
+        function init() {
+            renderShoppingList();
+            updateNutritionInfo(RECIPES[0].nutrition);
+            
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'true') {
+                darkModeToggle.checked = true;
+                toggleDarkMode();
+            }
+        }
+
+        function toggleDarkMode() {
+            state.darkMode = !state.darkMode;
+            document.body.classList.toggle('dark-mode');
+            modeText.textContent = state.darkMode ? 'Dark' : 'Light';
+            localStorage.setItem('darkMode', state.darkMode);
+        }
+
+        function switchTab(e) {
+            const tabId = e.target.dataset.tab;
+            
+            // Update active tab
+            tabs.forEach(tab => tab.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            // Show corresponding content
+            tabContents.forEach(content => content.classList.remove('active'));
+            document.getElementById(tabId + '-tab').classList.add('active');
+        }
+
+        function findRecipe() {
+            const ingredients = ingredientsInput.value.toLowerCase().split(',');
+            const diet = document.getElementById('diet').value;
+            const cuisine = document.getElementById('cuisine').value;
+
+            // Simple AI matching (in real app, this would be more sophisticated)
+            const matchedRecipes = RECIPES.filter(recipe => {
+                const matchesIngredients = ingredients.some(ing => 
+                    recipe.ingredients.some(recipeIng => recipeIng.includes(ing.trim()))
+                );
+                const matchesDiet = diet === 'any' || recipe.diet === diet;
+                const matchesCuisine = cuisine === 'any' || recipe.cuisine === cuisine;
+                
+                return matchesIngredients && matchesDiet && matchesCuisine;
+            });
+
+            if (matchedRecipes.length > 0) {
+                const randomRecipe = matchedRecipes[Math.floor(Math.random() * matchedRecipes.length)];
+                displayRecipe(randomRecipe);
+                showNotification("Found " + matchedRecipes.length + " recipes!");
+            } else {
+                showNotification("No recipes found. Try different ingredients!");
+            }
+        }
+
+        function displayRecipe(recipe) {
+            document.getElementById('recipe-name').textContent = recipe.name;
+            document.getElementById('recipe-image').innerHTML = '<i class="fas fa-' + (recipe.diet === 'non-veg' ? 'drumstick-bite' : 'carrot') + '"></i>';
+            
+            // Update meta info
+            const metaHtml = `
+                <span class="meta-item"><i class="fas fa-fire"></i> ${recipe.nutrition.calories} cal</span>
+                <span class="meta-item"><i class="fas fa-clock"></i> ${recipe.time}</span>
+                <span class="meta-item"><i class="fas fa-utensils"></i> Serves ${recipe.serves}</span>
+            `;
+            document.getElementById('recipe-meta').innerHTML = metaHtml;
+            
+            // Update instructions
+            const instructionsElement = document.getElementById('recipe-instructions');
+            instructionsElement.innerHTML = `
+                <h3><i class="fas fa-list-ol"></i> Instructions</h3>
+                <ol>
+                    ${recipe.instructions.map(step => `<li>${step}</li>`).join('')}
+                </ol>
+                <h3><i class="fas fa-lightbulb"></i> Maa's Tips</h3>
+                <ul style="list-style-type: none;">
+                    ${recipe.tips.map(tip => `<li><i class="fas fa-star" style="color: var(--primary);"></i> ${tip}</li>`).join('')}
+                </ul>
+            `;
+            
+            // Update nutrition
+            updateNutritionInfo(recipe.nutrition);
+            
+            // Show result
+            recipeResult.style.display = 'block';
+            
+            // Update save button state
+            saveRecipeBtn.innerHTML = state.savedRecipes.includes(recipe.id) 
+                ? '<i class="fas fa-heart"></i> Saved' 
+                : '<i class="fas fa-heart"></i> Save';
+        }
+
+        function saveRecipe() {
+            const recipeName = document.getElementById('recipe-name').textContent;
+            const recipe = RECIPES.find(r => r.name === recipeName);
+            
+            if (recipe) {
+                if (state.savedRecipes.includes(recipe.id)) {
+                    // Remove from saved
+                    state.savedRecipes = state.savedRecipes.filter(id => id !== recipe.id);
+                    saveRecipeBtn.innerHTML = '<i class="fas fa-heart"></i> Save';
+                    showNotification("Removed " + recipe.name + " from saved recipes");
+                } else {
+                    // Add to saved
+                    state.savedRecipes.push(recipe.id);
+                    saveRecipeBtn.innerHTML = '<i class="fas fa-heart"></i> Saved';
+                    showNotification("Saved " + recipe.name + " to your favorites!");
+                }
+                localStorage.setItem('savedRecipes', JSON.stringify(state.savedRecipes));
+            }
+        }
+
+        function generateMealPlan() {
+            // Simple meal plan generator
+            const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            const meals = ['Breakfast', 'Lunch', 'Dinner'];
+            const vegRecipes = RECIPES.filter(r => r.diet === 'vegetarian');
+            const nonVegRecipes = RECIPES.filter(r => r.diet === 'non-veg');
+            
+            days.forEach(day => {
+                state.mealPlan[day] = {
+                    Breakfast: vegRecipes[Math.floor(Math.random() * vegRecipes.length)].name,
+                    Lunch: Math.random() > 0.5 
+                        ? nonVegRecipes[Math.floor(Math.random() * nonVegRecipes.length)].name 
+                        : vegRecipes[Math.floor(Math.random() * vegRecipes.length)].name,
+                    Dinner: vegRecipes[Math.floor(Math.random() * vegRecipes.length)].name
+                };
+            });
+            
+            // Display Monday's meals by default
+            displayDayMeals('monday');
+            showNotification("Generated weekly meal plan!");
+        }
+
+        function displayDayMeals(day) {
+            const meals = state.mealPlan[day];
+            if (!meals) {
+                showNotification("Please generate a meal plan first!");
+                return;
+            }
+            
+            let html = '<h3>' + day.charAt(0).toUpperCase() + day.slice(1) + ' Meals</h3>';
+            for (const [meal, recipe] of Object.entries(meals)) {
+                html += '<div class="meal-item"><strong>' + meal + ':</strong> ' + recipe + '</div>';
+            }
+            
+            document.getElementById('day-meals').innerHTML = html;
+            
+            // Update active day
+            document.querySelectorAll('.meal-day').forEach(el => {
+                el.classList.toggle('active', el.dataset.day === day);
+            });
+        }
+
+        function askAI() {
+            const question = aiQuestionInput.value.trim();
+            if (!question) return;
+            
+            // Add user question to chat
+            const chatDiv = document.querySelector('.ai-chat');
+            const userMsg = document.createElement('div');
+            userMsg.className = 'user-message';
+            userMsg.innerHTML = '<strong>You:</strong> ' + question;
+            chatDiv.appendChild(userMsg);
+            
+            // Simulate AI thinking
+            setTimeout(() => {
+                // Generate AI response
+                let response;
+                
+                if (question.includes('substitute') || question.includes('replace')) {
+                    // Find substitution
+                    const ingredient = Object.keys(AI_RESPONSES.substitutions).find(ing => 
+                        question.toLowerCase().includes(ing)
+                    );
+                    response = ingredient 
+                        ? '<strong>AI Maa:</strong> ' + AI_RESPONSES.substitutions[ingredient]
+                        : "<strong>AI Maa:</strong> Beta, I'm not sure what you want to substitute. Can you be more specific?";
+                } 
+                else if (question.includes('tip') || question.includes('advice')) {
+                    // Random cooking tip
+                    response = '<strong>AI Maa:</strong> ' + AI_RESPONSES.cookingTips[Math.floor(Math.random() * AI_RESPONSES.cookingTips.length)];
+                }
+                else {
+                    // Default response
+                    response = '<strong>AI Maa:</strong> For "' + question + '", I would suggest checking the recipe instructions. Do you want me to find a recipe for you?';
+                }
+                
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'ai-message';
+                aiMsg.innerHTML = response;
+                chatDiv.appendChild(aiMsg);
+                
+                // Scroll to bottom
+                chatDiv.scrollTop = chatDiv.scrollHeight;
+            }, 1000);
+            
+            // Clear input
+            aiQuestionInput.value = '';
+        }
+
+        function startVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window)) {
+                showNotification("Voice recognition not supported in your browser");
+                return;
+            }
+            
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-IN';
+            recognition.interimResults = false;
+            
+            recognition.onstart = () => {
+                voiceBtn.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+                showNotification("Listening... Speak now!");
+            };
+            
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                ingredientsInput.value = transcript;
+                showNotification('Heard: "' + transcript + '"');
+            };
+            
+            recognition.onerror = (event) => {
+                showNotification("Error occurred in recognition: " + event.error);
+            };
+            
+            recognition.onend = () => {
+                voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+            };
+            
+            recognition.start();
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    
+                    // Simulate AI image recognition
+                    setTimeout(() => {
+                        const foods = ["Dosa", "Biryani", "Samosa", "Pani Puri", "Gulab Jamun"];
+                        const detectedFood = foods[Math.floor(Math.random() * foods.length)];
+                        imageResult.textContent = "Detected: " + detectedFood + " (85% confidence)";
+                        imageResult.style.display = 'block';
+                        
+                        // Auto-find recipe if available
+                        const matchedRecipe = RECIPES.find(r => 
+                            r.name.toLowerCase().includes(detectedFood.toLowerCase())
+                        );
+                        if (matchedRecipe) {
+                            setTimeout(() => {
+                                displayRecipe(matchedRecipe);
+                                showNotification("Found recipe for " + detectedFood + "!");
+                            }, 500);
+                        }
+                    }, 1500);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function renderShoppingList() {
+            const listEl = document.getElementById('shopping-list');
+            listEl.innerHTML = '';
+            
+            state.shoppingList.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <input type="checkbox" ${item.checked ? 'checked' : ''} 
+                           onchange="toggleShoppingItem(${index})">
+                    ${item.item} ${item.quantity ? '(' + item.quantity + ')' : ''}
+                `;
+                listEl.appendChild(li);
+            });
+        }
+
+        function toggleShoppingItem(index) {
+            state.shoppingList[index].checked = !state.shoppingList[index].checked;
+            localStorage.setItem('shoppingList', JSON.stringify(state.shoppingList));
+        }
+
+        function updateNutritionInfo(nutrition) {
+            document.getElementById('calories').textContent = nutrition.calories;
+            document.getElementById('protein').textContent = nutrition.protein;
+            document.getElementById('carbs').textContent = nutrition.carbs;
+            document.getElementById('fats').textContent = nutrition.fats;
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = '<i class="fas fa-info-circle"></i> ' + message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease-out';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Make functions available globally
+        window.toggleShoppingItem = toggleShoppingItem;
+    </script>
+</body>
+</html>
